@@ -13,8 +13,9 @@ public class Main {
     static bank_details bankdetailsObject = new bank_details();
 
     public static void main(String[] args) throws ParseException {
-
+        fileDb.FildWriteDb();
         HashMap<String,bank_details> map = new HashMap<>();
+        
         int temp1;
         do {
             System.out.println("**************************** Welcome to Motadata Smart Online Banking System ****************");
