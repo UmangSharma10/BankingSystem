@@ -8,7 +8,76 @@ import static java.lang.Integer.parseInt;
 
 public class fileDb extends bank_details{
         static void FileReadDb() {
+                HashMap<String,bank_details> map = new HashMap<>();
+//ArrayList<String,String> data = new ArrayList<>();
 
+            String filePath_password = "password.txt";
+            String filePath_details = "details.txt";
+            String filePath_history = "history.txt";
+
+            BufferedReader br1 = null;
+            BufferedReader br2 = null;
+            BufferedReader br3 = null;
+
+            try {
+
+                File file1 = new File(filePath_password);
+                File file2 = new File(filePath_details);
+                File file3 = new File(filePath_history);
+
+                // create BufferedReader object from the File
+                br1 = new BufferedReader(new FileReader(file1));
+                br2 = new BufferedReader(new FileReader(file2));
+                br3 = new BufferedReader(new FileReader(file3));
+
+                String line1 = null;
+                String line2 = null;
+                String line3 = null;
+
+// read file line by line
+                while ((line1 = br1.readLine() ) != null) {
+                    line2 = br2.readLine();
+                    line3 = br3.readLine();
+                    bank_details tempVariable = new bank_details();
+
+                    String[] parts1 = line1.split(",");
+                    String[] parts2 = line2.split(",");
+                    String[] parts3 = line3.split(",");
+
+                    String userName = parts1[0].trim();
+                    tempVariable.Password = parts1[1].trim();
+
+                    tempVariable.Name = parts2[1].trim();
+                    tempVariable.Type = parts2[2].trim();
+                    tempVariable.Amount = parseInt(parts2[3].trim());
+                    tempVariable.AccID = String.valueOf(parseInt(parts2[4].trim()));
+
+
+                    int arry_size = parseInt(parts3[1].trim());
+                    ArrayList<String> dummyDetails = new ArrayList<>();
+                    ArrayList<String> dummyDate = new ArrayList<>();
+                    int i;
+                    for(i=2; i<( 2+ arry_size); i++)
+                    {
+                        dummyDetails.add(parts3[i].trim());
+                    }
+                    System.out.println(dummyDate);
+                    for(;i<parts3.length;i++)
+                    {
+                        dummyDate.add(parts3[i].trim());
+                    }
+
+                    tempVariable.details =dummyDetails;
+                    tempVariable.Date = dummyDate;
+                    if (!userName.equals(""))
+                        map.put(userName, tempVariable);
+
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         }
 
         static void FildWriteDb(){
